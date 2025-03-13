@@ -84,7 +84,7 @@ const CARRIER_DATA: SuperCapData[] = [
             c3: { id: "c3", isBase: false, name: "支援维修无人机系统", shortName: "维修飞机" },
         },
     },
-    {
+   /* {
         id: "cr4",
         name: "FSV830",
         type: ShipTypes.carrier,
@@ -104,10 +104,31 @@ const CARRIER_DATA: SuperCapData[] = [
             e1: { id: "e1", isBase: false, name: "区域防空系统", shortName: "区域防空" },
             e2: { id: "e2", isBase: false, name: "护航艇坞仓", shortName: "护航艇仓" },
         },
+    },*/
+    {
+        id: "cr4", //new correct cr4
+        name: "FSV830",
+        type: ShipTypes.carrier,
+        pop: 40,
+        limit: 2,
+        modules: {
+            a1: { id: "a1", isBase: true, name: "护卫舰生产系统", shortName: "护卫生产" },
+            a2: { id: "a2", isBase: false, name: "护航艇生产系统", shortName: "炮艇生产" },
+            a3: { id: "a3", isBase: false, name: "战机胜场系统", shortName: "战机生产" },
+            b1: { id: "b1", isBase: true, name: "预警指挥系统", shortName: "预警指挥" },
+            b2: { id: "b2", isBase: false, name: "协同指挥系统", shortName: "协同指挥" },
+            b3: { id: "b3", isBase: false, name: "干扰指挥系统", shortName: "干扰指挥" },
+            c1: { id: "c1", isBase: false, name: "工程维修系统", shortName: "工程维修" },
+            c2: { id: "c2", isBase: false, name: "战略资源存储系统", shortName: "战略存储" },
+            d1: { id: "d1", isBase: false, name: "舰载机系统", shortName: "载机平台" },
+            d2: { id: "d2", isBase: false, name: "维修无人机系统", shortName: "维修飞机" },
+            e1: { id: "e1", isBase: false, name: "区域防空系统", shortName: "区域防空" },
+            e2: { id: "e2", isBase: false, name: "护航艇坞仓", shortName: "护航艇仓" },
+        },
     },
     {
         id: "cr5",
-        name: "埃迪卡拉级",
+        name: "埃迪卡拉级", //eddiekar rubbish
         type: ShipTypes.carrier,
         pop: 40,
         limit: 2,

@@ -91,4 +91,39 @@ function updateState(currentVersion: string | null, state: any): any {
             });
         }
     }
+    fixDet(currentVersion, state);
 }
+
+function fixDet (currentVersion: string | null, state: any): any {
+    let ver = Number(currentVersion);
+    if (ver >= 3 && ver<= 6){
+        Object.keys(state.acquiredBluePrint).forEach((key) => {
+            const mapDict: { [key: string]: string } = {
+                'a': 'c',
+                'b': 'a',
+                'c': 'd',
+                'd': 'c',
+                'e': 'e'
+            };
+            const superCap =  state.acquiredBluePrint[key].superCapitals;
+            if(superCap.some(() => superCap.id === "cr4")){
+                const regex = /[a-z]\d$/;
+                for(let i = 1; i < superCap.length; i++){
+                    if(superCap.id === "cr4") {
+                            for(let j = 1; j < superCap.module.length; j++){
+                                if(regex.test(superCap.modules[j])){
+                                    const alphabet = superCap.modules[j][0]
+                                    const nc = mapDict[alphabet] || alphabet
+                                    const int = superCap.modules[j][1];
+
+                                    superCap.modules[i] = nc + int;
+
+                                }
+                            }
+                        } 
+                    } state.version = "7" //for now, mimic version null behaviour to set version number to 7
+                }
+            })
+        }
+        return;
+    }
