@@ -128,7 +128,7 @@ const CARRIER_DATA: SuperCapData[] = [
     },
     {
         id: "cr5",
-        name: "埃迪卡拉级", //eddiekar rubbish
+        name: "埃迪卡拉级", 
         type: ShipTypes.carrier,
         pop: 40,
         limit: 2,
