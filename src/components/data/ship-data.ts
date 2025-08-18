@@ -152,6 +152,30 @@ const BATTLE_CRUISER_DATA: SuperCapData[] = [
         },
     },
     {
+        id: "bc7",
+        name: "安东塔斯持剑者级",
+        type: ShipTypes.battleCruiser,
+        pop: 35,
+        limit: 6,
+        modules: {
+            m1: { id: "m1", isBase: true, name: "蜂群无人机作战中枢", shortName: "蜂群中枢" },
+            m2: { id: "m2", isBase: false, name: "联合无人机作战中枢", shortName: "联合中枢" },
+            m3: { id: "m3", isBase: false, name: "同频无人机作战中枢", shortName: "同频中枢" },
+            a1: { id: "a1", isBase: true, name: "利剑指挥系统", shortName: "利剑指挥" },
+            a2: { id: "a2", isBase: false, name: "短剑指挥系统", shortName: "短剑指挥" },
+            a3: { id: "a3", isBase: false, name: "阔剑指挥系统", shortName: "阔剑指挥" },
+            b1: { id: "b1", isBase: false, name: "护航艇搭载系统", shortName: "护航艇仓" },
+            b2: { id: "b2", isBase: false, name: "导弹发射系统", shortName: "导弹发射" },
+            b3: { id: "b3", isBase: false, name: "脉冲炮系统", shortName: "脉冲炮塔" },
+            c1: { id: "c1", isBase: false, name: "强化装甲系统", shortName: "强化装甲" },
+            c2: { id: "c2", isBase: false, name: "电磁能量装甲", shortName: "电磁装甲" },
+            c3: { id: "c3", isBase: false, name: "附加装甲系统", shortName: "附加装甲" },
+            d1: { id: "d1", isBase: false, name: "防空导弹系统", shortName: "防空导弹" },
+            d2: { id: "d2", isBase: false, name: "矿车投射矩阵系统", shortName: "矿车投射" },
+            d3: { id: "d3", isBase: false, name: "导弹投射系统", shortName: "导弹投射" },
+        },
+    },
+    {
         id: "bc2",
         name: "乌拉诺斯之矛",
         type: ShipTypes.battleCruiser,
@@ -321,7 +345,22 @@ const CRUISER_DATA: ShipData[] = [
 ];
 
 const FRIGATE_DATA: ShipData[] = [
-    { id: "d1", name: "刺水母级", type: ShipTypes.frigate, pop: [8, 6], limit: 10, variants: ["特种型", "防空型"] },
+    {
+        id: "d1",
+        name: "刺水母级",
+        type: ShipTypes.frigate,
+        pop: [8, 6],
+        limit: 10,
+        variants: ["特种型", "防空型", "登陆型"],
+    },
+    {
+        id: "d12",
+        name: "锆石级",
+        type: ShipTypes.frigate,
+        pop: [8, 8],
+        limit: 10,
+        variants: ["突击型", "特种型"],
+    },
     {
         id: "d2",
         name: "雷里亚特级",
@@ -407,7 +446,14 @@ const DESTROYER_DATA: ShipData[] = [
         limit: 10,
         variants: ["火炮型", "重炮型", "裝甲型"],
     },
-    { id: "f9", name: "亚达伯拉级", type: ShipTypes.destroyer, pop: [8, 8], limit: 10, variants: ["通用型", "裝甲型"] },
+    {
+        id: "f9",
+        name: "亚达伯拉级",
+        type: ShipTypes.destroyer,
+        pop: [8, 8],
+        limit: 10,
+        variants: ["通用型", "裝甲型", "防空型"],
+    },
     { id: "f6", name: "创神星级", type: ShipTypes.destroyer, pop: [6, 6], limit: 10, variants: ["轨道炮", "魚雷型"] },
     {
         id: "f7",
@@ -446,6 +492,7 @@ const DESTROYER_DATA: ShipData[] = [
 
 const AIRCRAFT_DATA: AircraftData[] = [
     { id: "a1", name: "密斯托拉", type: ShipTypes.aircraft, variants: [""], limit: 10 },
+    { id: "a12", name: "雷火V022", type: ShipTypes.aircraft, variants: ["防空型", "特种型", "干扰型"], limit: 8 },
     { id: "a2", name: "海氏追隨者", type: ShipTypes.aircraft, variants: [""], limit: 8 },
     { id: "a3", name: "林鴞A100", type: ShipTypes.aircraft, variants: [""], limit: 10 },
     { id: "a4", name: "砂龙", type: ShipTypes.aircraft, variants: [""], limit: 10 },
@@ -473,8 +520,8 @@ const CORVETTE_DATA: AircraftData[] = [
     { id: "e5", name: "虚灵", type: ShipTypes.corvette, limit: 10, variants: [""] },
     { id: "e10", name: "海尔波普", type: ShipTypes.corvette, limit: 10, variants: ["多功能", "对接型"] },
     { id: "e11", name: "坦普尔1号", type: ShipTypes.corvette, limit: 10, variants: ["干扰型", "预警型"] },
-    { id: "e6", name: "RB7-13", type: ShipTypes.corvette, limit: 10, variants: [""] },
-    { id: "e7", name: "鳐", type: ShipTypes.corvette, limit: 10, variants: [""] },
+    { id: "e6", name: "RB7-13", type: ShipTypes.corvette, limit: 10, variants: ["攻击型", "突防型"] },
+    { id: "e7", name: "鳐", type: ShipTypes.corvette, limit: 10, variants: ["高速型", "防御型"] },
     {
         id: "e8",
         name: "CV-M011",
