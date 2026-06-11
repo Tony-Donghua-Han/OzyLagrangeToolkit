@@ -407,7 +407,7 @@ const FRIGATE_DATA: ShipData[] = [
         name: "雷里亚特级",
         type: ShipTypes.frigate,
         pop: [4, 4, 4],
-        limit: [10,10],
+        limit: [10,10,10],
         variants: ["反舰型", "魚雷型", "隐身型"],
     },
     {
@@ -423,7 +423,7 @@ const FRIGATE_DATA: ShipData[] = [
         name: "红宝石级",
         type: ShipTypes.frigate,
         pop: [5, 8, 5],
-        limit: [10,10],
+        limit: [10,10,10],
         variants: ["轨道炮", "粒子炮", "防卫型"],
     },
     { id: "d10", name: "雨海级", type: ShipTypes.frigate, pop: [5, 8], limit: [10,10], variants: ["轨道炮", "脉冲型"] },
@@ -432,7 +432,7 @@ const FRIGATE_DATA: ShipData[] = [
         name: "卡里莱恩级",
         type: ShipTypes.frigate,
         pop: [4, 5, 5],
-        limit: [10,10],
+        limit: [10,10,10],
         variants: ["侦查型", "重炮型", "特種型"],
     },
     {
