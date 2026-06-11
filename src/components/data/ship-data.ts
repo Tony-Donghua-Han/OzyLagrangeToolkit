@@ -592,7 +592,8 @@ const CORVETTE_DATA: AircraftData[] = [
     { id: "e2", name: "CV-T800", type: ShipTypes.corvette, limit: 15, variants: [""] },
     { id: "e3", name: "蜂巢守卫者", type: ShipTypes.corvette, limit: 10, variants: [""] },
     { id: "e4", name: "S-列维9号", type: ShipTypes.corvette, limit: 10, variants: [""] },
-    { id: "e12", name: "天機", type: ShipTypes.corvette, limit: 10, variants: ["反艦型","攻擊型"] },
+    { id: "e12", name: "索姆河之影", type: ShipTypes.corvette, limit: 9, variants: [""] },
+    { id: "e14", name: "天機", type: ShipTypes.corvette, limit: 10, variants: ["反艦型","攻擊型"] },
     { id: "e13", name: "野火", type: ShipTypes.corvette, limit: 10, variants: ["防禦型","防空型"] },
     { id: "e5", name: "虚灵", type: ShipTypes.corvette, limit: 10, variants: [""] },
     { id: "e10", name: "海尔波普", type: ShipTypes.corvette, limit: 10, variants: ["多功能", "对接型"] },
@@ -606,7 +607,7 @@ const CORVETTE_DATA: AircraftData[] = [
         limit: 15,
         variants: ["导弹型", "火炮型", "高速型"],
     },
-    { id: "e9", name: "CV-II003", type: ShipTypes.corvette, limit: 10, variants: [""] },
+    { id: "e9", name: "CV-II003", type: ShipTypes.corvette, limit: 15, variants: [""] },
 ];
 
 export const UNIT_DATA_BASE: UnitDataBase = {
