@@ -327,7 +327,7 @@ const CRUISER_DATA: ShipData[] = [
         name: "艾奥级",
         type: ShipTypes.cruiser,
         pop: [18, 18, 18],
-        limit: 8,
+        limit: [8,8,8],
         variants: ["离子炮", "反舰型", "攻城型"],
     },
     {
@@ -335,7 +335,7 @@ const CRUISER_DATA: ShipData[] = [
         name: "奇美拉級",
         type: ShipTypes.cruiser,
         pop: [18, 20, 20],
-        limit: 8,
+        limit: [8,8,8],
         variants: ["炮弹型", "重炮型", "防衛型"],
     },
     {
@@ -343,19 +343,17 @@ const CRUISER_DATA: ShipData[] = [
         name: "卡利斯托級",
         type: ShipTypes.cruiser,
         pop: [20, 20, 20],
-        limit: 8
-        
-        ,
+        limit: [8,8,8],
         variants: ["鱼雷型", "反舰型", "支援型"],
     },
-    { id: "c4", name: "猎兵级", type: ShipTypes.cruiser, pop: [20, 18], limit: 8, variants: ["支援型", "反舰型"] },
-    { id: "c6", name: "康納混沌级", type: ShipTypes.cruiser, pop: [20, 20], limit: 8, variants: ["轨道炮", "电浆型"] },
+    { id: "c4", name: "猎兵级", type: ShipTypes.cruiser, pop: [20, 18], limit: [8,8], variants: ["支援型", "反舰型"] },
+    { id: "c6", name: "康納混沌级", type: ShipTypes.cruiser, pop: [20, 20], limit: [8,8], variants: ["轨道炮", "电浆型"] },
     {
         id: "c7",
         name: "光锥级",
         type: ShipTypes.cruiser,
         pop: [20, 20, 20],
-        limit: 8,
+        limit: [8,8,8],
         variants: ["通用型", "防空型", "突击型"],
     },
     {
@@ -363,7 +361,7 @@ const CRUISER_DATA: ShipData[] = [
         name: "狩猎者级",
         type: ShipTypes.cruiser,
         pop: [18, 18, 18],
-        limit: 8,
+        limit: [8,8,8],
         variants: ["通用型", "战术型", "防空型"],
     },
     {
@@ -371,7 +369,7 @@ const CRUISER_DATA: ShipData[] = [
         name: "CAS066級",
         type: ShipTypes.cruiser,
         pop: [18, 18, 18, 18],
-        limit: 12,
+        limit: [12,12,12,12],
         variants: ["綜合型", "炮击型", "载机型", "支援型"],
     },
     {
@@ -379,10 +377,12 @@ const CRUISER_DATA: ShipData[] = [
         name: "KCCPV2.0",
         type: ShipTypes.cruiser,
         pop: [16, 16, 16],
-        limit: 12,
+        limit: [12,12,12,12],
         variants: ["綜合型", "载机型", "轨道炮", "脉冲型"],
     },
-    { id: "c10", name: "游骑兵级", type: ShipTypes.cruiser, pop: [18, 18], limit: 8, variants: ["综合型", "离子炮"] },
+    { id: "c10", name: "游骑兵级", type: ShipTypes.cruiser, pop: [18, 18], limit: [8,8,1], variants: ["综合型", "离子炮","觀光船"] },
+    { id: "c11", name: "玉衡级", type: ShipTypes.cruiser, pop: [20, 20,20], limit: [8,8,8], variants: ["综合型", "防禦型","支援型"] },
+    { id: "c12", name: "白堊级", type: ShipTypes.cruiser, pop: [20, 20], limit: [8,8], variants: ["干擾型", "防空型"] },
 ];
 
 const FRIGATE_DATA: ShipData[] = [
@@ -390,8 +390,8 @@ const FRIGATE_DATA: ShipData[] = [
         id: "d1",
         name: "刺水母级",
         type: ShipTypes.frigate,
-        pop: [8, 6],
-        limit: 10,
+        pop: [8, 6, 6],
+        limit: [10,10,10],
         variants: ["特种型", "防空型", "登陆型"],
     },
     {
@@ -399,7 +399,7 @@ const FRIGATE_DATA: ShipData[] = [
         name: "锆石级",
         type: ShipTypes.frigate,
         pop: [8, 8],
-        limit: 10,
+        limit: [10,10],
         variants: ["突击型", "特种型"],
     },
     {
@@ -407,24 +407,32 @@ const FRIGATE_DATA: ShipData[] = [
         name: "雷里亚特级",
         type: ShipTypes.frigate,
         pop: [4, 4, 4],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["反舰型", "魚雷型", "隐身型"],
+    },
+    {
+        id: "d13",
+        name: "瑤光级",
+        type: ShipTypes.frigate,
+        pop: [6, 6],
+        limit: [10,10],
+        variants: ["通用型", "特種型"],
     },
     {
         id: "d3",
         name: "红宝石级",
         type: ShipTypes.frigate,
         pop: [5, 8, 5],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["轨道炮", "粒子炮", "防卫型"],
     },
-    { id: "d10", name: "雨海级", type: ShipTypes.frigate, pop: [5, 8], limit: 10, variants: ["轨道炮", "脉冲型"] },
+    { id: "d10", name: "雨海级", type: ShipTypes.frigate, pop: [5, 8], limit: [10,10], variants: ["轨道炮", "脉冲型"] },
     {
         id: "d4",
         name: "卡里莱恩级",
         type: ShipTypes.frigate,
         pop: [4, 5, 5],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["侦查型", "重炮型", "特種型"],
     },
     {
@@ -432,7 +440,7 @@ const FRIGATE_DATA: ShipData[] = [
         name: "澄海級",
         type: ShipTypes.frigate,
         pop: [5, 5, 5],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["反舰型", "飞弹型", "防空型"],
     },
     {
@@ -440,7 +448,7 @@ const FRIGATE_DATA: ShipData[] = [
         name: "诺玛級",
         type: ShipTypes.frigate,
         pop: [6, 6, 6],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["攻城型", "支援型", "防空型"],
     },
     {
@@ -448,16 +456,16 @@ const FRIGATE_DATA: ShipData[] = [
         name: "静海级",
         type: ShipTypes.frigate,
         pop: [4, 4, 4],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["综合型", "脉冲型", "防空型"],
     },
-    { id: "d8", name: "云海级", type: ShipTypes.frigate, pop: [4, 4], limit: 10, variants: ["突擊型", "防空型"] },
+    { id: "d8", name: "云海级", type: ShipTypes.frigate, pop: [4, 4], limit: [10,10], variants: ["突擊型", "防空型"] },
     {
         id: "d11",
         name: "狼蜥级",
         type: ShipTypes.frigate,
         pop: [6, 6, 8],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["防御型", "突击型", "特种型"],
     },
     {
@@ -465,18 +473,26 @@ const FRIGATE_DATA: ShipData[] = [
         name: "FG300级",
         type: ShipTypes.frigate,
         pop: [3, 3, 3],
-        limit: 15,
+        limit: [15,15,15],
         variants: ["多功能", "装甲型", "侦察型"],
     },
 ];
 
 const DESTROYER_DATA: ShipData[] = [
     {
+        id: "f10",
+        name: "開陽级",
+        type: ShipTypes.destroyer,
+        pop: [12, 12],
+        limit: [10,10],
+        variants: ["通用型", "反艦型"],
+    },
+    {
         id: "f2",
         name: "斗牛级",
         type: ShipTypes.destroyer,
         pop: [11, 11, 8],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["攻击型", "突击型", "防御型"],
     },
     {
@@ -484,7 +500,7 @@ const DESTROYER_DATA: ShipData[] = [
         name: "阋神星级",
         type: ShipTypes.destroyer,
         pop: [7, 9, 7],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["火炮型", "重炮型", "裝甲型"],
     },
     {
@@ -492,42 +508,58 @@ const DESTROYER_DATA: ShipData[] = [
         name: "亚达伯拉级",
         type: ShipTypes.destroyer,
         pop: [8, 8],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["通用型", "裝甲型", "防空型"],
     },
-    { id: "f6", name: "创神星级", type: ShipTypes.destroyer, pop: [6, 6], limit: 10, variants: ["轨道炮", "魚雷型"] },
+    { id: "f6", name: "创神星级", type: ShipTypes.destroyer, pop: [6, 6], limit: [10,10], variants: ["轨道炮", "魚雷型"] },
     {
         id: "f7",
         name: "枪骑兵级",
         type: ShipTypes.destroyer,
         pop: [6, 6, 6],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["反舰型", "綜合型", "防空型"],
+    },
+    {
+        id: "f11",
+        name: "灼熱级",
+        type: ShipTypes.destroyer,
+        pop: [6, 6],
+        limit: [10,10],
+        variants: ["通用型", "戰術型"],
+    },
+    {
+        id: "f12",
+        name: "先登级",
+        type: ShipTypes.destroyer,
+        pop: [9, 10],
+        limit: [10,10],
+        variants: ["登陸型", "載機型"],
     },
     {
         id: "f8",
         name: "卫士级",
         type: ShipTypes.destroyer,
         pop: [9, 14, 9],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["支援型", "两栖型", "脉冲炮"],
     },
-    { id: "f1", name: "苔原级", type: ShipTypes.destroyer, pop: [9, 9], limit: 10, variants: ["支援型", "载机型"] },
+    { id: "f1", name: "苔原级", type: ShipTypes.destroyer, pop: [9, 9], limit: [10,10], variants: ["支援型", "载机型"] },
     {
         id: "f3",
         name: "谷神星级",
         type: ShipTypes.destroyer,
         pop: [8, 8, 8],
-        limit: 10,
+        limit: [10,10,10],
         variants: ["载机型", "支援型", "战术型"],
     },
     {
         id: "f4",
         name: "AC721級",
         type: ShipTypes.destroyer,
-        pop: [8, 12, 8],
-        limit: 15,
-        variants: ["通用型", "载机型", "飞弹型"],
+        pop: [8, 12, 8,12],
+        limit: [15,15,15,1],
+        variants: ["通用型", "载机型", "飞弹型", "英雄艦"],
     },
 ];
 
@@ -544,6 +576,8 @@ const AIRCRAFT_DATA: AircraftData[] = [
     { id: "a6", name: "平衡安德森", type: ShipTypes.aircraft, variants: [""], limit: 10 },
     { id: "a10", name: "SC002", type: ShipTypes.aircraft, variants: [""], limit: 10 },
     { id: "a11", name: "AT021", type: ShipTypes.aircraft, variants: ["脉冲型", "干扰型", "多功能"], limit: 15 },
+    { id: "a13", name: "天璇", type: ShipTypes.aircraft, variants: ["干扰型", "反艦型"], limit: 10 },
+    { id: "a14", name: "理智A101", type: ShipTypes.aircraft, variants: ["反艦型"], limit: 10 },
 ];
 
 const BOMBER_DATA: AircraftData[] = [
@@ -558,6 +592,9 @@ const CORVETTE_DATA: AircraftData[] = [
     { id: "e2", name: "CV-T800", type: ShipTypes.corvette, limit: 15, variants: [""] },
     { id: "e3", name: "蜂巢守卫者", type: ShipTypes.corvette, limit: 10, variants: [""] },
     { id: "e4", name: "S-列维9号", type: ShipTypes.corvette, limit: 10, variants: [""] },
+    { id: "e12", name: "索姆河之影", type: ShipTypes.corvette, limit: 9, variants: [""] },
+    { id: "e14", name: "天機", type: ShipTypes.corvette, limit: 10, variants: ["反艦型","攻擊型"] },
+    { id: "e13", name: "野火", type: ShipTypes.corvette, limit: 10, variants: ["防禦型","防空型"] },
     { id: "e5", name: "虚灵", type: ShipTypes.corvette, limit: 10, variants: [""] },
     { id: "e10", name: "海尔波普", type: ShipTypes.corvette, limit: 10, variants: ["多功能", "对接型"] },
     { id: "e11", name: "坦普尔1号", type: ShipTypes.corvette, limit: 10, variants: ["干扰型", "预警型"] },
@@ -570,7 +607,7 @@ const CORVETTE_DATA: AircraftData[] = [
         limit: 15,
         variants: ["导弹型", "火炮型", "高速型"],
     },
-    { id: "e9", name: "CV-II003", type: ShipTypes.corvette, limit: 10, variants: [""] },
+    { id: "e9", name: "CV-II003", type: ShipTypes.corvette, limit: 15, variants: [""] },
 ];
 
 export const UNIT_DATA_BASE: UnitDataBase = {

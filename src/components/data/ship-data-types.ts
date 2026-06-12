@@ -15,7 +15,7 @@ export interface ShipData {
     type: ShipWithVariants;
     variants: string[];
     pop: number[];
-    limit: number;
+    limit: number[];
 }
 
 export interface AircraftData {
