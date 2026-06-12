@@ -85,6 +85,26 @@ const CARRIER_DATA: SuperCapData[] = [
         },
     },
     {
+        id: "cr7",
+        name: "天樞級",
+        type: ShipTypes.carrier,
+        pop: 40,
+        limit: 5,
+        modules: {
+            m1: { id: "m1", isBase: true, name: "聯合作戰平台I", shortName: "大型載機" },
+            m2: { id: "m2", isBase: false, name: "聯合作戰平台II", shortName: "護航艇倉" },
+            a1: { id: "a1", isBase: true, name: "北斗I型維修無人機系統", shortName: "維修無人機I" },
+            a2: { id: "a2", isBase: false, name: "北斗II型維修無人機系統", shortName: "維修無人機I" },
+            a3: { id: "a3", isBase: false, name: "北斗III型維修無人機系統", shortName: "維修無人機III" },
+            b1: { id: "b1", isBase: false, name: "護航艇平台", shortName: "护護航艇倉" },
+            b2: { id: "b2", isBase: false, name: "戰機搭載平台", shortName: "大型載機" },
+            c1: { id: "c1", isBase: false, name: "飛行管控系統", shortName: "飛行管控" },
+            c2: { id: "c2", isBase: false, name: "附加維修系統", shortName: "維修模塊" },
+            d1: { id: "d1", isBase: false, name: "綜合防空平台", shortName: "自身攔截" },
+            d2: { id: "d2", isBase: false, name: "附加裝甲系統", shortName: "附加裝甲" },
+        },
+    },
+    {
         id: "cr4",
         name: "FSV830",
         type: ShipTypes.carrier,
@@ -156,7 +176,7 @@ const BATTLE_CRUISER_DATA: SuperCapData[] = [
         name: "安东塔斯持剑者级",
         type: ShipTypes.battleCruiser,
         pop: 35,
-        limit: 6,
+        limit: 3,
         modules: {
             m1: { id: "m1", isBase: true, name: "蜂群无人机作战中枢", shortName: "蜂群中枢" },
             m2: { id: "m2", isBase: false, name: "联合无人机作战中枢", shortName: "联合中枢" },
@@ -280,6 +300,25 @@ const BATTLE_CRUISER_DATA: SuperCapData[] = [
             f2: { id: "f2", isBase: false, name: "多目标防空系统", shortName: "防空反击" },
         },
     },
+    {
+        id: "bc8",
+        name: "天權級",
+        type: ShipTypes.battleCruiser,
+        pop: 35,
+        limit: 6,
+        modules: {
+            m1: { id: "m1", isBase: true, name: "磐石I型防禦系統", shortName: "護航艇坦傷" },
+            m2: { id: "m2", isBase: false, name: "磐石II型防禦系統", shortName: "護航艇坦傷" },
+            m3: { id: "m3", isBase: false, name: "磐石III型防禦系統", shortName: "護航艇維修" },
+            a1: { id: "a1", isBase: true, name: "導彈發射系统", shortName: "大型反舰" },
+            a2: { id: "a2", isBase: false, name: "能量投射武器系统", shortName: "能量反舰" },
+            b1: { id: "b1", isBase: false, name: "護航艇搭載系統", shortName: "護航艇倉" },
+            b2: { id: "b2", isBase: false, name: "投射矩陣系統", shortName: "小型反艦", },
+            c1: { id: "c1", isBase: false, name: "防空導彈系統", shortName: "防空導彈" },
+            c2: { id: "c2", isBase: false, name: "維修無人機系统", shortName: "損管系統" },
+            c3: { id: "c3", isBase: false, name: "強化裝甲系统", shortName: "強化裝甲" },
+        },
+    },
 ];
 
 const CRUISER_DATA: ShipData[] = [
@@ -304,7 +343,9 @@ const CRUISER_DATA: ShipData[] = [
         name: "卡利斯托級",
         type: ShipTypes.cruiser,
         pop: [20, 20, 20],
-        limit: 8,
+        limit: 8
+        
+        ,
         variants: ["鱼雷型", "反舰型", "支援型"],
     },
     { id: "c4", name: "猎兵级", type: ShipTypes.cruiser, pop: [20, 18], limit: 8, variants: ["支援型", "反舰型"] },
