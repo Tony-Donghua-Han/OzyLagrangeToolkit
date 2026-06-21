@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { lookUpShipById } from "../components/data/ship-data";
-import { ShipTypes } from "../components/data/ship-data-types";
+import { getUnitLimit, ShipTypes } from "../components/data/ship-data-types";
 import { addAccount, removeAccount } from "./actions/game-account";
 import {
     AddShip,
@@ -112,11 +112,17 @@ function handleAddShip(state: FleetPlannerState, action: PayloadAction<AddShip>)
     if (account.selectedFleet.type === FleetType.main) {
         const { mainFleet } = selectedFleet;
         if (mainFleet.findIndex((ship) => ship.shipId === shipId && ship.variant === variant) === -1)
-            mainFleet.push({ shipId, variant, count: shipData.limit, adjusted: false, leveled: false });
+            mainFleet.push({ shipId, variant, count: getUnitLimit(shipData, variant), adjusted: false, leveled: false });
     } else if (account.selectedFleet.type === FleetType.reinforcement) {
         const { reinforcement } = selectedFleet;
         if (reinforcement.findIndex((ship) => ship.shipId === shipId && ship.variant === variant) === -1)
-            reinforcement.push({ shipId, variant, count: shipData.limit, adjusted: false, leveled: false });
+            reinforcement.push({
+                shipId,
+                variant,
+                count: getUnitLimit(shipData, variant),
+                adjusted: false,
+                leveled: false,
+            });
     }
 }
 
@@ -144,7 +150,14 @@ function handleAddAircraft(state: FleetPlannerState, action: PayloadAction<AddSh
 
     const { aircraft } = selectedFleet;
     if (aircraft.findIndex((plane) => plane.shipId === shipId && plane.variant === variant) === -1)
-        aircraft.push({ shipId, variant, count: shipData.limit, distribution: [], adjusted: false, leveled: false });
+        aircraft.push({
+            shipId,
+            variant,
+            count: getUnitLimit(shipData, variant),
+            distribution: [],
+            adjusted: false,
+            leveled: false,
+        });
     aircraft.sort((aircraftA, aircraftB) => {
         return aircraftA.shipId[0].localeCompare(aircraftB.shipId[0]);
     });
