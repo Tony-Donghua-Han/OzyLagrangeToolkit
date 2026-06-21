@@ -21,7 +21,7 @@ import {
 } from "../redux/fleet-planner";
 import { getSelectedAccountId } from "../redux/selected-account";
 import { lookUpShipById } from "./data/ship-data";
-import { isShipData, ShipTypes } from "./data/ship-data-types";
+import { getUnitLimit, isShipData, ShipTypes } from "./data/ship-data-types";
 import { AircraftInFleet, EditRemoveShipOrAircraft, Fleet, FleetType } from "../redux/types/fleet-planner.type";
 import { AirCapacity } from "./data/air-capacity";
 
@@ -161,9 +161,10 @@ function AircraftTableRow(props: {
     let addOn = "";
     if (isShipData(data) && data.variants[0] !== "") addOn = ` - ${data.variants[variant]}`;
 
+    const limit = getUnitLimit(data, variant);
     const controlCell: JSX.Element = (
         <TableCell width={150}>
-            <IconButton color="success" size="small" onClick={handleIncreaseCount} disabled={count >= data.limit}>
+            <IconButton color="success" size="small" onClick={handleIncreaseCount} disabled={count >= limit}>
                 <AddIcon />
             </IconButton>
             <IconButton color="error" size="small" onClick={handleDecreaseCount} disabled={count <= 0}>
