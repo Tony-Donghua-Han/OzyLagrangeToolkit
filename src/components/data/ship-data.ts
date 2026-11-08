@@ -80,7 +80,7 @@ const CARRIER_DATA: SuperCapData[] = [
             b2: { id: "b2", isBase: false, name: "防御拦截系统", shortName: "防御拦截" },
             b3: { id: "b3", isBase: false, name: "防空导弹平台", shortName: "防空平台" },
             c1: { id: "c1", isBase: false, name: "附加载机机库", shortName: "大型载机" },
-            c2: { id: "c2", isBase: false, name: "附加护航挺舱坞", shortName: "火控辅助" },
+            c2: { id: "c2", isBase: false, name: "附加护航挺舱坞", shortName: "護航艇倉" },
             c3: { id: "c3", isBase: false, name: "支援维修无人机系统", shortName: "维修飞机" },
         },
     },

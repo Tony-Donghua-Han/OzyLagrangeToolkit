@@ -13,6 +13,7 @@ import { NavigationBar } from "./components/navigation-bar";
 import BluePrintReport from "./components/blue-print-report";
 import FleetBuilder from "./components/fleet-planner";
 import "./components/css/index.css";
+// eslint-disable-next-line import/no-unresolved
 import awsExports from "./aws-exports";
 import authTranslation from "./redux/language/amplify-auth";
 

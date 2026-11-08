@@ -11,6 +11,7 @@ import {
     FleetPlannerSettings,
     FleetNameChange,
     RemoveFleet,
+    Fleet,
     FleetPlan,
     FleetPlannerState,
     FleetType,
@@ -98,21 +99,34 @@ function handleRemoveFleet(state: FleetPlannerState, action: PayloadAction<Remov
     if (!account) return;
     account.fleets.splice(index, 1);
     if (account.fleets.length < 1) account.selectedFleet.index = -1;
-    else if (account.selectedFleet.index >= account.fleets.length) account.selectedFleet.index = account.fleets.length;
+    else if (account.selectedFleet.index >= account.fleets.length)
+        account.selectedFleet.index = account.fleets.length - 1;
+}
+
+function getSelectedFleet(account: FleetPlan): Fleet | undefined {
+    if (account.selectedFleet.index < 0) return undefined;
+    return account.fleets[account.selectedFleet.index];
 }
 
 function handleAddShip(state: FleetPlannerState, action: PayloadAction<AddShip>) {
     const { accountId, shipId, variant } = action.payload;
     let account = state[accountId];
     if (!account) account = createAccount(state, accountId);
-    const selectedFleet = account.fleets[account.selectedFleet.index];
+    const selectedFleet = getSelectedFleet(account);
     const shipData = lookUpShipById(shipId);
+    if (!selectedFleet) return;
     if (!shipData) return; // This should never happened
 
     if (account.selectedFleet.type === FleetType.main) {
         const { mainFleet } = selectedFleet;
         if (mainFleet.findIndex((ship) => ship.shipId === shipId && ship.variant === variant) === -1)
-            mainFleet.push({ shipId, variant, count: getUnitLimit(shipData, variant), adjusted: false, leveled: false });
+            mainFleet.push({
+                shipId,
+                variant,
+                count: getUnitLimit(shipData, variant),
+                adjusted: false,
+                leveled: false,
+            });
     } else if (account.selectedFleet.type === FleetType.reinforcement) {
         const { reinforcement } = selectedFleet;
         if (reinforcement.findIndex((ship) => ship.shipId === shipId && ship.variant === variant) === -1)
@@ -144,8 +158,9 @@ function handleAddAircraft(state: FleetPlannerState, action: PayloadAction<AddSh
     const { accountId, shipId, variant } = action.payload;
     let account = state[accountId];
     if (!account) account = createAccount(state, accountId);
-    const selectedFleet = account.fleets[account.selectedFleet.index];
+    const selectedFleet = getSelectedFleet(account);
     const shipData = lookUpShipById(shipId);
+    if (!selectedFleet) return;
     if (!shipData) return; // This should never happened
 
     const { aircraft } = selectedFleet;
