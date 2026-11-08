@@ -3,7 +3,7 @@ import { addCapacity, AirCapacity, ShipAirCapacity, SuperCapAirCapacity } from "
 import { lookUpShipById } from "../../components/data/ship-data";
 import { isShipData, isSuperCap, ShipTypes } from "../../components/data/ship-data-types";
 import { RootState } from "../core/store";
-import { getOwnedSuperCapLookUpTable } from "./acquired-blue-prints";
+import { getOwnedShipLookUpTable, getOwnedSuperCapLookUpTable } from "./acquired-blue-prints";
 import { techPointDisplayData } from "../../components/fleet-plan-ship-table";
 import { FleetType, FleetPlannerSetting } from "../types/fleet-planner.type";
 
@@ -149,7 +149,7 @@ export const getFleetsAirCapacity = createSelector(
                     const ownedSuperCap = ownedLookupTable[ship.shipId];
                     addCapacity(
                         capacity,
-                        SuperCapAirCapacity(ship.shipId, ownedSuperCap.modules, mainModule),
+                        SuperCapAirCapacity(ship.shipId, ownedSuperCap?.modules ?? [], mainModule),
                         ship.count,
                     );
                 } else {
@@ -163,39 +163,17 @@ export const getFleetsAirCapacity = createSelector(
 );
 
 export const getFleetShipTechPointLookupTable = createSelector(
-    (state: RootState) => {
-        const { accountId } = state.selectedAccount;
-        return state.acquiredBluePrint[accountId];
-    },
-    (state: RootState) => {
-        const { accountId } = state.selectedAccount;
-        return state.fleetPlanner[accountId].fleets;
-    },
-    (bluePrints, fleets) => {
-        // for all ships in each fleets, find the corresponding ship in bluePrints based on IP and return the techpoints
+    getOwnedShipLookUpTable,
+    getOwnedSuperCapLookUpTable,
+    getAllFleets,
+    (ships, superCaps, fleets) => {
         const lookUpObject: { [index: string]: techPointDisplayData } = {};
-        fleets.forEach((fleet) => {
-            const { aircraft, mainFleet, reinforcement } = fleet;
-            aircraft.forEach((ship) => {
-                const { shipId } = ship;
-                const bluePrint = bluePrints.ships.find((bp) => bp.id === shipId);
-                if (!bluePrint) return;
-
-                lookUpObject[shipId] = techPointsToDisplayValue(bluePrint.techPoint, shipId);
-            });
-            mainFleet.forEach((ship) => {
-                const { shipId } = ship;
-                const bluePrint = bluePrints.ships.find((bp) => bp.id === shipId);
-                if (!bluePrint) return;
-
-                lookUpObject[ship.shipId] = techPointsToDisplayValue(bluePrint.techPoint, shipId);
-            });
-            reinforcement.forEach((ship) => {
-                const { shipId } = ship;
-                const bluePrint = bluePrints.superCapitals.find((bp) => bp.id === shipId);
-                if (!bluePrint) return;
-
-                lookUpObject[ship.shipId] = techPointsToDisplayValue(bluePrint.techPoint, shipId);
+        fleets.forEach(({ aircraft, mainFleet, reinforcement }) => {
+            [...aircraft, ...mainFleet, ...reinforcement].forEach(({ shipId }) => {
+                const bluePrint = ships[shipId] ?? superCaps[shipId];
+                if (bluePrint && !lookUpObject[shipId]) {
+                    lookUpObject[shipId] = techPointsToDisplayValue(bluePrint.techPoint, shipId);
+                }
             });
         });
         return lookUpObject;

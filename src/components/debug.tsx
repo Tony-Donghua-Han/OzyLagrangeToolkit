@@ -5,10 +5,21 @@ import { useAppSelector } from "../redux/utils/hooks";
 
 function DevelopmnentDebug() {
     const store = useAppSelector((state) => state);
-    const serializedState = localStorage.getItem("state");
-    let stateStore = { nothing: "nothing" };
-    if (serializedState) stateStore = JSON.parse(serializedState);
-    const version = localStorage.getItem("stateVersion");
+    let stateStore: object = { nothing: "nothing" };
+    let version = null;
+    try {
+        const serializedState = localStorage.getItem("state");
+        version = localStorage.getItem("stateVersion");
+        if (serializedState) {
+            const value: unknown = JSON.parse(serializedState);
+            if (value === null || typeof value !== "object" || Array.isArray(value)) {
+                throw new Error("Invalid saved state");
+            }
+            stateStore = value;
+        }
+    } catch {
+        stateStore = { error: "无法读取本机存档" };
+    }
     return (
         <Container maxWidth="xl">
             <div className="debug-content-container">

@@ -104,3 +104,8 @@ export function isSuperCap(data: UnitData): data is SuperCapData {
     const { type } = data;
     return type === ShipTypes.battleCruiser || type === ShipTypes.carrier;
 }
+
+export function getUnitLimit(data: UnitData, variant: number): number {
+    if (isShipData(data)) return data.limit[variant] ?? 0;
+    return data.limit;
+}

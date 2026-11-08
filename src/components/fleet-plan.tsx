@@ -14,7 +14,7 @@ import { Fleet } from "../redux/types/fleet-planner.type";
 
 export function FleetPlan(): JSX.Element {
     const fleets = useAppSelector(getAllFleets);
-    if (fleets.length < 0)
+    if (fleets.length === 0)
         return (
             <div className="fleet-manager-container">
                 <Typography>没有舰队啊。</Typography>

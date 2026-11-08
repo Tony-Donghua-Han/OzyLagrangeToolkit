@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { lookUpShipById } from "../components/data/ship-data";
-import { ShipTypes } from "../components/data/ship-data-types";
+import { getUnitLimit, ShipTypes } from "../components/data/ship-data-types";
 import { addAccount, removeAccount } from "./actions/game-account";
 import {
     AddShip,
@@ -11,6 +11,7 @@ import {
     FleetPlannerSettings,
     FleetNameChange,
     RemoveFleet,
+    Fleet,
     FleetPlan,
     FleetPlannerState,
     FleetType,
@@ -95,28 +96,47 @@ function handleAddFleet(state: FleetPlannerState, action: PayloadAction<FleetAct
 function handleRemoveFleet(state: FleetPlannerState, action: PayloadAction<RemoveFleet>) {
     const { accountId, index } = action.payload;
     const account = state[accountId];
-    if (!account) return;
+    if (!account || !account.fleets[index]) return;
     account.fleets.splice(index, 1);
-    if (account.fleets.length < 1) account.selectedFleet.index = -1;
-    else if (account.selectedFleet.index >= account.fleets.length) account.selectedFleet.index = account.fleets.length;
+    const selectedIndex = account.selectedFleet.index;
+    const nextIndex = index < selectedIndex ? selectedIndex - 1 : selectedIndex;
+    account.selectedFleet.index = Math.min(nextIndex, account.fleets.length - 1);
+}
+
+function getSelectedFleet(account: FleetPlan): Fleet | undefined {
+    if (account.selectedFleet.index < 0) return undefined;
+    return account.fleets[account.selectedFleet.index];
 }
 
 function handleAddShip(state: FleetPlannerState, action: PayloadAction<AddShip>) {
     const { accountId, shipId, variant } = action.payload;
     let account = state[accountId];
     if (!account) account = createAccount(state, accountId);
-    const selectedFleet = account.fleets[account.selectedFleet.index];
+    const selectedFleet = getSelectedFleet(account);
     const shipData = lookUpShipById(shipId);
+    if (!selectedFleet) return;
     if (!shipData) return; // This should never happened
 
     if (account.selectedFleet.type === FleetType.main) {
         const { mainFleet } = selectedFleet;
         if (mainFleet.findIndex((ship) => ship.shipId === shipId && ship.variant === variant) === -1)
-            mainFleet.push({ shipId, variant, count: shipData.limit, adjusted: false, leveled: false });
+            mainFleet.push({
+                shipId,
+                variant,
+                count: getUnitLimit(shipData, variant),
+                adjusted: false,
+                leveled: false,
+            });
     } else if (account.selectedFleet.type === FleetType.reinforcement) {
         const { reinforcement } = selectedFleet;
         if (reinforcement.findIndex((ship) => ship.shipId === shipId && ship.variant === variant) === -1)
-            reinforcement.push({ shipId, variant, count: shipData.limit, adjusted: false, leveled: false });
+            reinforcement.push({
+                shipId,
+                variant,
+                count: getUnitLimit(shipData, variant),
+                adjusted: false,
+                leveled: false,
+            });
     }
 }
 
@@ -138,13 +158,21 @@ function handleAddAircraft(state: FleetPlannerState, action: PayloadAction<AddSh
     const { accountId, shipId, variant } = action.payload;
     let account = state[accountId];
     if (!account) account = createAccount(state, accountId);
-    const selectedFleet = account.fleets[account.selectedFleet.index];
+    const selectedFleet = getSelectedFleet(account);
     const shipData = lookUpShipById(shipId);
+    if (!selectedFleet) return;
     if (!shipData) return; // This should never happened
 
     const { aircraft } = selectedFleet;
     if (aircraft.findIndex((plane) => plane.shipId === shipId && plane.variant === variant) === -1)
-        aircraft.push({ shipId, variant, count: shipData.limit, distribution: [], adjusted: false, leveled: false });
+        aircraft.push({
+            shipId,
+            variant,
+            count: getUnitLimit(shipData, variant),
+            distribution: [],
+            adjusted: false,
+            leveled: false,
+        });
     aircraft.sort((aircraftA, aircraftB) => {
         return aircraftA.shipId[0].localeCompare(aircraftB.shipId[0]);
     });
@@ -152,8 +180,8 @@ function handleAddAircraft(state: FleetPlannerState, action: PayloadAction<AddSh
 
 function handleChangeSelectedFleet(state: FleetPlannerState, action: PayloadAction<SelectedFleet>) {
     const { accountId, index, type } = action.payload;
-    let account = state[accountId];
-    if (!account) account = createAccount(state, accountId);
+    const account = state[accountId];
+    if (!account?.fleets[index] || (type !== FleetType.main && type !== FleetType.reinforcement)) return;
     account.selectedFleet = { index, type };
 }
 

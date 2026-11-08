@@ -12,7 +12,7 @@ import {
     removeShipOrAircraft,
 } from "../redux/fleet-planner";
 import { lookUpShipById } from "./data/ship-data";
-import { isShipData, isSuperCap } from "./data/ship-data-types";
+import { getUnitLimit, isShipData, isSuperCap } from "./data/ship-data-types";
 import { useAppDispatch, useAppSelector } from "../redux/utils/hooks";
 import {
     displayControl,
@@ -161,9 +161,10 @@ function EditShipRow(props: {
     if (!data) return null;
     let addOn = "";
     if (isShipData(data) && data.variants[0] !== "") addOn = ` - ${data.variants[variant]}`;
+    const limit = getUnitLimit(data, variant);
     const controlCell: JSX.Element = (
         <TableCell width={150}>
-            <IconButton color="success" size="small" onClick={handleIncreaseCount} disabled={count >= data.limit}>
+            <IconButton color="success" size="small" onClick={handleIncreaseCount} disabled={count >= limit}>
                 <AddIcon />
             </IconButton>
             <IconButton color="error" size="small" onClick={handleDecreaseCount} disabled={count <= 0}>

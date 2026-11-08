@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Button, IconButton, Input, TextField, Typography } from "@mui/material";
+import { Alert, Container, Button, IconButton, Input, TextField, Typography } from "@mui/material";
 import { Authenticator } from "@aws-amplify/ui-react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -18,16 +18,15 @@ import { randomName } from "./utils/randomName";
 function Setting() {
     const gameAccounts = useAppSelector((state) => selectAllAccounts(state));
 
-    let content = (
-        <div className="account-content-container">
-            <SettingContent />
-            <AccountManagement />
-            <DataManager />
-        </div>
+    return (
+        <Container maxWidth="xl">
+            <div className="account-content-container">
+                {gameAccounts.length === 0 ? <NoAccountWarning /> : <SettingContent />}
+                <AccountManagement />
+                <DataManager />
+            </div>
+        </Container>
     );
-    if (gameAccounts.length <= 0) content = <NoAccountWarning />;
-
-    return <Container maxWidth="xl">{content}</Container>;
 }
 
 function AccountManagement() {
@@ -126,13 +125,23 @@ function AccountManagement() {
 
 export function DataManager() {
     const exportLink = useAppSelector((state) => getStateExportLink(state));
+    const [importing, setImporting] = useState(false);
+    const [importFailed, setImportFailed] = useState(false);
 
-    function handleStateUpoad(e: React.ChangeEvent<HTMLInputElement>) {
-        if (!e.target.files) {
+    async function handleStateUpload(event: React.ChangeEvent<HTMLInputElement>) {
+        const input = event.currentTarget;
+        const file = input.files?.[0];
+        if (!file) return;
+        setImportFailed(false);
+        setImporting(true);
+        try {
+            await importStateIntoLocalStorage(file);
+        } catch {
+            setImportFailed(true);
+            setImporting(false);
+            input.value = "";
             return;
         }
-        const file = e.target.files[0];
-        importStateIntoLocalStorage(file);
         window.location.reload();
     }
 
@@ -140,13 +149,14 @@ export function DataManager() {
         <div>
             <div className="data-manager-header">数据管理</div>
             <div className="grey-themed">
-                <Button component="label">
+                <Button component="label" disabled={importing}>
                     导入数据
-                    <input type="file" hidden onChange={handleStateUpoad}></input>
+                    <input type="file" hidden disabled={importing} onChange={handleStateUpload} />
                 </Button>
-                <Button href={exportLink} download>
+                <Button href={exportLink} download="ozylagrange-backup.json">
                     导出数据
                 </Button>
+                {importFailed && <Alert severity="error">导入失败，请检查备份文件格式或浏览器储存空间。</Alert>}
             </div>
         </div>
     );
