@@ -49,8 +49,8 @@ export function TimerAdder(props: timerAdder): JSX.Element {
         setTime("");
     }
 
-    function handleTypeChange(event: React.MouseEvent<HTMLElement>, timerType: TimerType) {
-        setType(timerType);
+    function handleTypeChange(_event: React.MouseEvent<HTMLElement>, timerType: TimerType | null) {
+        if (timerType !== null) setType(timerType);
     }
 
     function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {

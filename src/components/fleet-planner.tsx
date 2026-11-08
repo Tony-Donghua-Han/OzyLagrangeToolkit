@@ -57,8 +57,8 @@ function FleetControl(): JSX.Element {
         dispatch(addFleet({ accountId, name: randomFleetName() }));
     }
 
-    function handleSelectedFleetChange(event: React.MouseEvent<HTMLElement>, newIndex: string) {
-        const index = Number(newIndex);
+    function handleSelectedFleetChange(_event: React.MouseEvent<HTMLElement>, index: number | null) {
+        if (index === null) return;
         dispatch(changeSelectedFleet({ accountId, index, type: selectedFleet.type }));
     }
 
@@ -70,7 +70,8 @@ function FleetControl(): JSX.Element {
         );
     });
 
-    function handleFleetTypeChange(event: React.MouseEvent<HTMLElement>, type: FleetType) {
+    function handleFleetTypeChange(_event: React.MouseEvent<HTMLElement>, type: FleetType | null) {
+        if (type === null) return;
         dispatch(changeSelectedFleet({ accountId, index: selectedFleet.index, type }));
     }
 

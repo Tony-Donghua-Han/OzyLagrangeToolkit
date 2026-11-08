@@ -1,4 +1,5 @@
 import { RootState } from "../core/store";
+import { prepareSavedState, STATE_VERSION, writeState } from "./local-save";
 
 export interface VersionedState {
     state: RootState;
@@ -6,30 +7,12 @@ export interface VersionedState {
 }
 
 export function getStateExportLink(state: RootState): string {
-    const versionedState: VersionedState = { state, stateVersion: "6" };
-    const serilizedState = JSON.stringify(versionedState);
-    const bb = new Blob([serilizedState], { type: "text/plain" });
-    const url = window.URL.createObjectURL(bb);
-    return url;
+    const versionedState: VersionedState = { state, stateVersion: STATE_VERSION };
+    const blob = new Blob([JSON.stringify(versionedState)], { type: "application/json" });
+    return window.URL.createObjectURL(blob);
 }
 
-export function importStateIntoLocalStorage(file: File) {
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-        if (!evt?.target?.result) {
-            return;
-        }
-
-        const { result } = evt.target;
-        const data: VersionedState = JSON.parse(result as string);
-        console.log(data);
-        try {
-            const serializedState = JSON.stringify(data.state);
-            localStorage.setItem("state", serializedState);
-            localStorage.setItem("stateVersion", data.stateVersion);
-        } catch {
-            console.warn("Save state error.");
-        }
-    };
-    reader.readAsBinaryString(file);
+export async function importStateIntoLocalStorage(file: File) {
+    const data: Partial<VersionedState> | null = JSON.parse(await file.text());
+    writeState(prepareSavedState(data?.state, data?.stateVersion));
 }

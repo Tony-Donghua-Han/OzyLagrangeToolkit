@@ -2,6 +2,8 @@ import { Card, Typography, Button } from "@mui/material";
 import {
     displayControl,
     displayOnlyOwnedShip,
+    getAllFleets,
+    getSelectedFleet,
     selectAvailableShipTypes,
 } from "../redux/selector/fleet-planner.selector";
 import { useAppDispatch, useAppSelector } from "../redux/utils/hooks";
@@ -16,33 +18,36 @@ import { TechIcon } from "./Icons/tech";
 export function FleetShipPicker(): JSX.Element {
     const selectedTypes = useAppSelector(selectAvailableShipTypes);
     const showControl = useAppSelector(displayControl);
+    const { index } = useAppSelector(getSelectedFleet);
+    const fleets = useAppSelector(getAllFleets);
     if (!showControl) return <div className="fleet-planner-ship-type-container"></div>;
+    const disabled = !fleets[index];
     let resultCards: JSX.Element[] = [];
     selectedTypes.forEach((type) => {
         switch (type) {
             case ShipTypes.cruiser:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.cruisers }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.cruisers, disabled }));
                 break;
             case ShipTypes.destroyer:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.destroyers }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.destroyers, disabled }));
                 break;
             case ShipTypes.frigate:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.frigates }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.frigates, disabled }));
                 break;
             case ShipTypes.corvette:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.corvettes }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.corvettes, disabled }));
                 break;
             case ShipTypes.aircraft:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.aircrafts }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.aircrafts, disabled }));
                 break;
             case ShipTypes.bomber:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.bombers }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.bombers, disabled }));
                 break;
             case ShipTypes.battleCruiser:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.battleCruisers }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.battleCruisers, disabled }));
                 break;
             case ShipTypes.carrier:
-                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.carriers }));
+                resultCards = resultCards.concat(shipCardsByType({ data: UNIT_DATA_BASE.carriers, disabled }));
                 break;
             default:
             // Do nothing
@@ -55,8 +60,9 @@ export function FleetShipPicker(): JSX.Element {
     );
 }
 
-function shipCardsByType(props: { data: UnitDataGroup }): JSX.Element[] {
+function shipCardsByType(props: { data: UnitDataGroup; disabled: boolean }): JSX.Element[] {
     const { type, list } = props.data;
+    const { disabled } = props;
     let shipCards: JSX.Element[] = [];
     switch (type) {
         case ShipTypes.cruiser:
@@ -65,11 +71,11 @@ function shipCardsByType(props: { data: UnitDataGroup }): JSX.Element[] {
         case ShipTypes.corvette:
         case ShipTypes.aircraft:
         case ShipTypes.bomber:
-            shipCards = list.map((data) => <ShipCard shipData={data} key={data.id} />);
+            shipCards = list.map((data) => <ShipCard shipData={data} disabled={disabled} key={data.id} />);
             break;
         case ShipTypes.battleCruiser:
         case ShipTypes.carrier:
-            shipCards = list.map((data) => <SuperCapCard superCapData={data} key={data.id} />);
+            shipCards = list.map((data) => <SuperCapCard superCapData={data} disabled={disabled} key={data.id} />);
             break;
         default:
         // Do nothing

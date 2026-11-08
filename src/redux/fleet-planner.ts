@@ -96,11 +96,11 @@ function handleAddFleet(state: FleetPlannerState, action: PayloadAction<FleetAct
 function handleRemoveFleet(state: FleetPlannerState, action: PayloadAction<RemoveFleet>) {
     const { accountId, index } = action.payload;
     const account = state[accountId];
-    if (!account) return;
+    if (!account || !account.fleets[index]) return;
     account.fleets.splice(index, 1);
-    if (account.fleets.length < 1) account.selectedFleet.index = -1;
-    else if (account.selectedFleet.index >= account.fleets.length)
-        account.selectedFleet.index = account.fleets.length - 1;
+    const selectedIndex = account.selectedFleet.index;
+    const nextIndex = index < selectedIndex ? selectedIndex - 1 : selectedIndex;
+    account.selectedFleet.index = Math.min(nextIndex, account.fleets.length - 1);
 }
 
 function getSelectedFleet(account: FleetPlan): Fleet | undefined {
@@ -180,8 +180,8 @@ function handleAddAircraft(state: FleetPlannerState, action: PayloadAction<AddSh
 
 function handleChangeSelectedFleet(state: FleetPlannerState, action: PayloadAction<SelectedFleet>) {
     const { accountId, index, type } = action.payload;
-    let account = state[accountId];
-    if (!account) account = createAccount(state, accountId);
+    const account = state[accountId];
+    if (!account?.fleets[index] || (type !== FleetType.main && type !== FleetType.reinforcement)) return;
     account.selectedFleet = { index, type };
 }
 
